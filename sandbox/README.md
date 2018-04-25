@@ -9,7 +9,7 @@ http://python-ev3dev.readthedocs.io/en/latest/
 Someones efforts to help provide examples just like the `/examples` folder:<br>
 http://ev3python.com
 
-**TODO: 1.**
+**DONE: 1.**
 From left to right where your team is sitting now assign each person a number.<br>
 The person farthest to the left is team member #1, on their right is team member #2,
 on their right is team member #3, and if you have a 4th person they are team member #4.
