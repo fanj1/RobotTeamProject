@@ -92,7 +92,7 @@ def using_a_robot_wrapper_class():
 
 
 def the_computer_can_receive_messages_too():
-    """ Showing an example of a PC receiving a message.  This code is similar to m1 but not
+    """ Showing an example of a PC receiving a message.  This code is similar to fanj1 but not
         identical, so don't copy anything from here except maybe the words:
           mqtt_client.send_message("on_circle_draw", [        ])
         """
