@@ -1,5 +1,5 @@
 The sandbox is a place for you to individually learn about the EV3 robot.
-You need to work all of the TODO items in your folder to learn about that
+You need to work all of the TO_DO items in your folder to learn about that
 features of the EV3 robot.  You can refer to the `/examples` folder
 for information about the api or visit one of these websites:
 
