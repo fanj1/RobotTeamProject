@@ -17,7 +17,7 @@ You will use that number to help you avoid messing up one another's work in your
 team repository. Conflicts in git can be resolved, but it's easier to just avoid them.
 
 The subfolders m1, m2, m3, and m4 that are within this `/sandbox` folder are all identical.
-- Team member #1 (fill in your own name here) will work all of the TODOs in the m1 folder
+- Team member #1 (Jun Fan) will work all of the TODOs in the m1 folder
 - Team member #2 (fill in your own name here) will work all of the TODOs in the m2 folder
 - Team member #3 (fill in your own name here) will work all of the TODOs in the m3 folder
 - Team member #4 (fill in your own name here) will work all of the TODOs in the m4 folder
