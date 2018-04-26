@@ -30,7 +30,7 @@ def test_forward_backward():
 
     time_s = 1
     while time_s != 0:
-        seconds = input('time to travel in seconds (larger than 0)')
+        seconds = int(input('time to travel in seconds (larger than 0)'))
         if seconds == 0:
             break
         speed = input('speed to travel (-100, 100)')
@@ -94,6 +94,8 @@ def forward_seconds(seconds, speed, stop_action):
     left_motor.run_forever(speed_sp=speed)
     right_motor.run_forever(speed_sp=speed)
     time.sleep(seconds)
+    left_motor.stop()
+    right_motor.stop()
     left_motor.stop(stop_action)
     right_motor.stop(stop_action)
 
