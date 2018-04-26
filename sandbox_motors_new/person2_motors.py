@@ -1,7 +1,7 @@
 """
 Functions for SPINNING the robot LEFT and RIGHT.
-Authors: David Fisher, David Mutchler and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and Zhihyu Wang.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # TODO: 2. Implment spin_left_seconds, then the relevant part of the test function.
 #          Test and correct as needed.
@@ -28,6 +28,27 @@ def test_spin_left_spin_right():
       3. Same as #2, but runs spin_left_by_encoders.
       4. Same as #1, 2, 3, but tests the spin_right functions.
     """
+    # Connect two large motors on output ports B and C
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    # Check that the motors are actually connected
+    assert left_motor.connected
+    assert right_motor.connected
+
+    #test spin_left_seconds
+    seconds = int(input('enter the seconds to travel :'))
+    speed = int(input('enter the speed to travel (-100 to 100) :'))
+    stop_action = str(input('enter the Stop action ("brake", "coast" or "hold") :'))
+    spin_left_seconds(seconds, speed, stop_action)
+
+        # test spin_left_by_time
+        #degrees = int(input('enter the degree to travel :'))
+        #speed = int(input('enter the speed to travel (-100 to 100) :'))
+        #stop_action = str(input('enter the Stop action ("brake", "coast" or "hold") :'))
+        #spin_left_by_time(degrees, speed, stop_action)
+
+
 
 
 def spin_left_seconds(seconds, speed, stop_action):
@@ -36,6 +57,24 @@ def spin_left_seconds(seconds, speed, stop_action):
     where speed is between -100 (full speed spin_right) and 100 (full speed spin_left).
     Uses the given stop_action.
     """
+    # Connect two large motors on output ports B and C
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    # Check that the motors are actually connected
+    assert left_motor.connected
+    assert right_motor.connected
+
+    time = 1
+    while True:
+        if time == seconds:
+            break
+        else:
+            time = time + 1
+            left_motor.run_forever(speed_sp=-speed)
+            right_motor.run_forever(speed_sp=speed)
+            left_motor.stop()
+            right_motor.stop(stop_action=stop_action)
 
 
 def spin_left_by_time(degrees, speed, stop_action):
@@ -48,6 +87,25 @@ def spin_left_by_time(degrees, speed, stop_action):
       2. Sleep for the computed number of seconds.
       3. Stop moving.
     """
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    # Check that the motors are actually connected
+    assert left_motor.connected
+    assert right_motor.connected
+    seconds =
+    time = 1
+    while True:
+        if time = :
+            break
+        else:
+            angle = angle + 1
+            left_motor.run_forever(speed_sp=-speed)
+            right_motor.run_forever(speed_sp=speed)
+            time.sleep()
+            left_motor.stop()
+            right_motor.stop(stop_action=stop_action)
+
 
 
 def spin_left_by_encoders(degrees, speed, stop_action):
