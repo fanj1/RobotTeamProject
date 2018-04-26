@@ -1,9 +1,9 @@
 """
 Functions for moving the robot FORWARD and BACKWARD.
-Authors: David Fisher, David Mutchler and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher, David Mutchler and Jun Fan.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
-# TODO: 2. Implment forward_seconds, then the relevant part of the test function.
+# DONE: 2. Implment forward_seconds, then the relevant part of the test function.
 #          Test and correct as needed.
 #   Then repeat for forward_by_time.
 #   Then repeat for forward_by_encoders.
@@ -28,6 +28,55 @@ def test_forward_backward():
       4. Same as #1, 2, 3, but tests the BACKWARD functions.
     """
 
+    time_s = 1
+    while time_s != 0:
+        seconds = input('time to travel in seconds (larger than 0)')
+        if seconds == 0:
+            break
+        speed = input('speed to travel (-100, 100)')
+        stop_action = input('stop action ("brake", "coast" or "hold")')
+        forward_seconds(seconds, speed, stop_action)
+
+    # while time != 0:
+    #     inches = input('distance to travel in inches (larger than 0)')
+    #     if inches == 0:
+    #         break
+    #     speed = input('speed to travel (-100, 100)')
+    #     stop_action = input('stop action ("brake", "coast" or "hold")')
+    #     forward_by_time(inches, speed, stop_action)
+    #
+    # while time != 0:
+    #     inches = input('distance to travel in inches (larger than 0)')
+    #     if inches == 0:
+    #         break
+    #     speed = input('speed to travel (-100, 100)')
+    #     stop_action = input('stop action ("brake", "coast" or "hold")')
+    #     forward_by_encoders(inches, speed, stop_action)
+    #
+    # while time != 0:
+    #     seconds = input('time to travel in seconds (larger than 0)')
+    #     if seconds == 0:
+    #         break
+    #     speed = input('speed to travel (-100, 100)')
+    #     stop_action = input('stop action ("brake", "coast" or "hold")')
+    #     backward_seconds(seconds, speed, stop_action)
+    #
+    # while time != 0:
+    #     inches = input('distance to travel in inches (larger than 0)')
+    #     if inches == 0:
+    #         break
+    #     speed = input('speed to travel (-100, 100)')
+    #     stop_action = input('stop action ("brake", "coast" or "hold")')
+    #     backward_by_time(inches, speed, stop_action)
+    #
+    # while time != 0:
+    #     inches = input('distance to travel in inches (larger than 0)')
+    #     if inches == 0:
+    #         break
+    #     speed = input('speed to travel (-100, 100)')
+    #     stop_action = input('stop action ("brake", "coast" or "hold")')
+    #     backward_by_encoders(inches, speed, stop_action)
+
 
 def forward_seconds(seconds, speed, stop_action):
     """
@@ -35,6 +84,18 @@ def forward_seconds(seconds, speed, stop_action):
     where speed is between -100 (full speed backward) and 100 (full speed forward).
     Uses the given stop_action.
     """
+
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    assert left_motor.connected
+    assert right_motor.connected
+
+    left_motor.run_forever(speed_sp=speed)
+    right_motor.run_forever(speed_sp=speed)
+    time.sleep(seconds)
+    left_motor.stop(stop_action)
+    right_motor.stop(stop_action)
 
 
 def forward_by_time(inches, speed, stop_action):
