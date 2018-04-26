@@ -42,7 +42,7 @@ def test_spin_left_spin_right():
     stop_action = str(input('enter the Stop action ("brake", "coast" or "hold") :'))
     spin_left_seconds(seconds, speed, stop_action)
 
-        # test spin_left_by_time
+        #test spin_left_by_time
         #degrees = int(input('enter the degree to travel :'))
         #speed = int(input('enter the speed to travel (-100 to 100) :'))
         #stop_action = str(input('enter the Stop action ("brake", "coast" or "hold") :'))
