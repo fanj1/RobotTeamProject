@@ -91,13 +91,12 @@ def forward_seconds(seconds, speed, stop_action):
     assert left_motor.connected
     assert right_motor.connected
 
-    left_motor.run_forever(speed_sp=speed)
-    right_motor.run_forever(speed_sp=speed)
-    time.sleep(seconds)
-    left_motor.stop()
-    right_motor.stop()
-    left_motor.stop(stop_action)
-    right_motor.stop(stop_action)
+    while time_s != 0:
+        left_motor.run_forever(speed_sp=speed)
+        right_motor.run_forever(speed_sp=speed)
+        time.sleep(seconds)
+        left_motor.stop(stop_action)
+        right_motor.stop(stop_action)
 
 
 def forward_by_time(inches, speed, stop_action):
