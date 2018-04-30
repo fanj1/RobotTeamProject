@@ -30,6 +30,8 @@ def test_forward_backward():
 
     while True:
         a = str(input('direction(forward/backward):'))
+        if a == 'break':
+            break
         b = str(input('action(time/distance/encoder):'))
         while a == 'forward'and b == 'time':
             seconds = int(input('time to travel in seconds (larger than 0): '))
