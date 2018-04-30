@@ -46,6 +46,17 @@ def test_spin_left_spin_right():
     #         stop_action = str(input('enter the Stop action ("brake", "coast" or "hold") :'))
     #         spin_left_seconds(seconds, speed, stop_action)
 
+    # test spin_left_by_time
+    # while True:
+    #     degrees = int(input('enter the degree to travel :'))
+    #     if degrees == 0:
+    #         break
+    #     else:
+    #         speed = int(input('enter the speed to travel (-100 to 100) :'))
+    #         stop_action = str(input('enter the Stop action ("brake", "coast" or "hold") :'))
+    #         spin_left_by_time(degrees, speed, stop_action)
+
+    # test spin_left_by_encoders
     while True:
         degrees = int(input('enter the degree to travel :'))
         if degrees == 0:
@@ -53,9 +64,7 @@ def test_spin_left_spin_right():
         else:
             speed = int(input('enter the speed to travel (-100 to 100) :'))
             stop_action = str(input('enter the Stop action ("brake", "coast" or "hold") :'))
-            spin_left_by_time(degrees, speed, stop_action)
-
-
+            spin_left_by_encoders(degrees, speed, stop_action)
 
 
 def spin_left_seconds(seconds, speed, stop_action):
@@ -112,6 +121,19 @@ def spin_left_by_encoders(degrees, speed, stop_action):
       1. Compute the number of degrees the wheels should spin to achieve the desired distance.
       2. Move until the computed number of degrees is reached.
     """
+
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+    assert left_motor.connected
+    assert right_motor.connected
+
+    left_motor.run_to_pel_pos(position_sp=degrees, speed_sp=-speed)
+    left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+    right_motor.run_to_pel_pos(position_sp=degrees, speed_sp=speed)
+    right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+    left_motor.stop()
+    right_motor.stop(stop_action=stop_action)
+
 
 
 def spin_right_seconds(seconds, speed, stop_action):
