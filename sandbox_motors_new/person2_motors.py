@@ -37,10 +37,14 @@ def test_spin_left_spin_right():
     assert right_motor.connected
 
     #test spin_left_seconds
-    seconds = int(input('enter the seconds to travel :'))
-    speed = int(input('enter the speed to travel (-100 to 100) :'))
-    stop_action = str(input('enter the Stop action ("brake", "coast" or "hold") :'))
-    spin_left_seconds(seconds, speed, stop_action)
+    while True:
+        seconds = int(input('enter the seconds to travel :'))
+        if seconds == 0:
+            break
+        else:
+            speed = int(input('enter the speed to travel (-100 to 100) :'))
+            stop_action = str(input('enter the Stop action ("brake", "coast" or "hold") :'))
+            spin_left_seconds(seconds, speed, stop_action)
 
     #test spin_left_by_time
     #degrees = int(input('enter the degree to travel :'))
@@ -65,16 +69,11 @@ def spin_left_seconds(seconds, speed, stop_action):
     assert left_motor.connected
     assert right_motor.connected
 
-    times = 1
-    while True:
-        if times == 0:
-            break
-        else:
-            left_motor.run_forever(speed_sp=-speed)
-            right_motor.run_forever(speed_sp=speed)
-            time.sleep(seconds)
-            left_motor.stop()
-            right_motor.stop(stop_action=stop_action)
+    left_motor.run_forever(speed_sp=-speed)
+    right_motor.run_forever(speed_sp=speed)
+    time.sleep(seconds)
+    left_motor.stop()
+    right_motor.stop(stop_action=stop_action)
 
 
 def spin_left_by_time(degrees, speed, stop_action):
