@@ -67,12 +67,12 @@ def spin_left_seconds(seconds, speed, stop_action):
 
     times = 1
     while True:
-        if times == seconds:
+        if times == 0:
             break
         else:
-            times = times + 1
             left_motor.run_forever(speed_sp=-speed)
             right_motor.run_forever(speed_sp=speed)
+            time.sleep(seconds)
             left_motor.stop()
             right_motor.stop(stop_action=stop_action)
 
