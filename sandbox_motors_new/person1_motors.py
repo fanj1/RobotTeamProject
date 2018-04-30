@@ -28,8 +28,7 @@ def test_forward_backward():
       4. Same as #1, 2, 3, but tests the BACKWARD functions.
     """
 
-    time_s = 1
-    while time_s != 0:
+    while True:
         seconds = int(input('time to travel in seconds (larger than 0)'))
         if seconds == 0:
             break
@@ -94,8 +93,8 @@ def forward_seconds(seconds, speed, stop_action):
     left_motor.run_forever(speed_sp=speed)
     right_motor.run_forever(speed_sp=speed)
     time.sleep(seconds)
-    left_motor.stop(stop_action)
-    right_motor.stop(stop_action)
+    left_motor.stop(stop_action = stop_action)
+    right_motor.stop(stop_action = stop_action)
 
 
 def forward_by_time(inches, speed, stop_action):
