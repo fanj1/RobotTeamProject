@@ -115,12 +115,12 @@ def forward_by_encoders(inches, speed, stop_action):
     assert left_motor.connected
     assert right_motor.connected
 
-    degrees = inches * 75 / speed
+    degrees = inches * 90
     left_motor.run_to_rel_pos(position_sp=degrees, speed_sp=speed)
     right_motor.run_to_rel_pos(position_sp=degrees, speed_sp=speed)
     left_motor.stop(stop_action=stop_action)
     right_motor.stop(stop_action=stop_action)
-    
+
 
 def backward_seconds(seconds, speed, stop_action):
     """ Calls forward_seconds with negative speeds to achieve backward motion. """
