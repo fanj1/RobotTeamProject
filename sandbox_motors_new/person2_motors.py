@@ -74,7 +74,7 @@ def spin_left_seconds(seconds, speed, stop_action):
             right_motor.run_forever(speed_sp=speed)
             time.sleep(seconds)
             left_motor.stop()
-            right_motor.stop(stop_action=stop_action)1
+            right_motor.stop(stop_action=stop_action)
 
 
 def spin_left_by_time(degrees, speed, stop_action):
