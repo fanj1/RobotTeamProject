@@ -28,31 +28,56 @@ def test_forward_backward():
       4. Same as #1, 2, 3, but tests the BACKWARD functions.
     """
 
-    # while True:
-    #     seconds = int(input('time to travel in seconds (larger than 0): '))
-    #     if seconds == 0:
-    #         break
-    #     speed = int(input('speed to travel (-100, 100): '))
-    #     stop_action = str(input('stop action ("brake", "coast" or "hold"): '))
-    #     forward_seconds(seconds, speed, stop_action)
-
-    # while True:
-    #     inches = int(input('distance to travel in inches (larger than 0): '))
-    #     if inches == 0:
-    #         break
-    #     speed = int(input('speed to travel (-100, 100): '))
-    #     stop_action = str(input('stop action ("brake", "coast" or "hold"): '))
-    #     forward_by_time(inches, speed, stop_action)
-
     while True:
-        inches = int(input('distance to travel in inches (larger than 0): '))
-        if inches == 0:
-            break
-        speed = int(input('speed to travel (-100, 100): '))
-        stop_action = str(input('stop action ("brake", "coast" or "hold"): '))
-        forward_by_encoders(inches, speed, stop_action)
+        a = str(input('direction(forward/backward):'))
+        b = str(input('action(time/distance/encoder):'))
+        while a == 'forward'and b == 'time':
+            seconds = int(input('time to travel in seconds (larger than 0): '))
+            if seconds == 0:
+                break
+            speed = int(input('speed to travel (-100, 100): '))
+            stop_action = str(input('stop action ("brake", "coast" or "hold"): '))
+            forward_seconds(seconds, speed, stop_action)
 
+        while a == 'forward'and b == 'distance':
+            inches = int(input('distance to travel in inches (larger than 0): '))
+            if inches == 0:
+                break
+            speed = int(input('speed to travel (-100, 100): '))
+            stop_action = str(input('stop action ("brake", "coast" or "hold"): '))
+            forward_by_time(inches, speed, stop_action)
 
+        while a == 'forward'and b == 'encoder':
+            inches = int(input('distance to travel in inches (larger than 0): '))
+            if inches == 0:
+                break
+            speed = int(input('speed to travel (-100, 100): '))
+            stop_action = str(input('stop action ("brake", "coast" or "hold"): '))
+            forward_by_encoders(inches, speed, stop_action)
+
+        while a == 'backward'and b == 'time':
+            seconds = int(input('time to travel in seconds (larger than 0): '))
+            if seconds == 0:
+                break
+            speed = int(input('speed to travel (-100, 100): '))
+            stop_action = str(input('stop action ("brake", "coast" or "hold"): '))
+            backward_seconds(seconds, speed, stop_action)
+
+        while a == 'backward'and b == 'distance':
+            inches = int(input('distance to travel in inches (larger than 0): '))
+            if inches == 0:
+                break
+            speed = int(input('speed to travel (-100, 100): '))
+            stop_action = str(input('stop action ("brake", "coast" or "hold"): '))
+            backward_by_time(inches, speed, stop_action)
+
+        while a == 'backward'and b == 'encoder':
+            inches = int(input('distance to travel in inches (larger than 0): '))
+            if inches == 0:
+                    break
+            speed = int(input('speed to travel (-100, 100): '))
+            stop_action = str(input('stop action ("brake", "coast" or "hold"): '))
+            backward_by_encoders(inches, speed, stop_action)
 
 
 def forward_seconds(seconds, speed, stop_action):
@@ -118,6 +143,8 @@ def forward_by_encoders(inches, speed, stop_action):
     degrees = float(inches * 90)
     left_motor.run_to_rel_pos(position_sp=degrees, speed_sp=speed)
     right_motor.run_to_rel_pos(position_sp=degrees, speed_sp=speed)
+    left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+    left_motor.wait_while(ev3.Motor.STATE_RUNNING)
     left_motor.stop(stop_action=stop_action)
     right_motor.stop(stop_action=stop_action)
 
@@ -125,13 +152,52 @@ def forward_by_encoders(inches, speed, stop_action):
 def backward_seconds(seconds, speed, stop_action):
     """ Calls forward_seconds with negative speeds to achieve backward motion. """
 
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    assert left_motor.connected
+    assert right_motor.connected
+
+    left_motor.run_forever(speed_sp=-speed)
+    right_motor.run_forever(speed_sp=-speed)
+    time.sleep(seconds)
+    left_motor.stop(stop_action=stop_action)
+    right_motor.stop(stop_action=stop_action)
+
 
 def backward_by_time(inches, speed, stop_action):
     """ Calls forward_by_time with negative speeds to achieve backward motion. """
 
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    assert left_motor.connected
+    assert right_motor.connected
+
+    seconds = float(inches * 75 / speed)
+    left_motor.run_forever(speed_sp=-speed)
+    right_motor.run_forever(speed_sp=-speed)
+    time.sleep(seconds)
+    left_motor.stop(stop_action=stop_action)
+    right_motor.stop(stop_action=stop_action)
+
 
 def backward_by_encoders(inches, speed, stop_action):
     """ Calls forward_by_encoders with negative speeds to achieve backward motion. """
+
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    assert left_motor.connected
+    assert right_motor.connected
+
+    degrees = float(inches * 90)
+    left_motor.run_to_rel_pos(position_sp=-degrees, speed_sp=-speed)
+    right_motor.run_to_rel_pos(position_sp=-degrees, speed_sp=-speed)
+    left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+    left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+    left_motor.stop(stop_action=stop_action)
+    right_motor.stop(stop_action=stop_action)
 
 
 test_forward_backward()
