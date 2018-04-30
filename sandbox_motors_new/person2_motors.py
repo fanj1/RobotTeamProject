@@ -127,9 +127,9 @@ def spin_left_by_encoders(degrees, speed, stop_action):
     assert left_motor.connected
     assert right_motor.connected
 
-    left_motor.run_to_pel_pos(position_sp=degrees, speed_sp=-speed)
+    left_motor.run_to_rel_pos(position_sp=-4.7*degrees, speed_sp=speed)
+    right_motor.run_to_rel_pos(position_sp=4.7*degrees, speed_sp=speed)
     left_motor.wait_while(ev3.Motor.STATE_RUNNING)
-    right_motor.run_to_pel_pos(position_sp=degrees, speed_sp=speed)
     right_motor.wait_while(ev3.Motor.STATE_RUNNING)
     left_motor.stop()
     right_motor.stop(stop_action=stop_action)
