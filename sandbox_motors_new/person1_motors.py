@@ -33,8 +33,8 @@ def test_forward_backward():
         seconds = int(input('time to travel in seconds (larger than 0)'))
         if seconds == 0:
             break
-        speed = input('speed to travel (-100, 100)')
-        stop_action = input('stop action ("brake", "coast" or "hold")')
+        speed = int(input('speed to travel (-100, 100)'))
+        stop_action = str(input('stop action ("brake", "coast" or "hold")'))
         forward_seconds(seconds, speed, stop_action)
 
     # while time != 0:
