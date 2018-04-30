@@ -65,15 +65,14 @@ def spin_left_seconds(seconds, speed, stop_action):
     assert left_motor.connected
     assert right_motor.connected
 
-    time = 1
+    times = 1
     while True:
-        if time == seconds:
+        if times == seconds:
             break
         else:
-            time = time + 1
+            times = times + 1
             left_motor.run_forever(speed_sp=-speed)
             right_motor.run_forever(speed_sp=speed)
-            time.sleep()
             left_motor.stop()
             right_motor.stop(stop_action=stop_action)
 
