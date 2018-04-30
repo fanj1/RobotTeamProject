@@ -88,24 +88,7 @@ def spin_left_by_time(degrees, speed, stop_action):
       2. Sleep for the computed number of seconds.
       3. Stop moving.
     """
-    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
 
-    # Check that the motors are actually connected
-    assert left_motor.connected
-    assert right_motor.connected
-    seconds =
-    time = 1
-    while True:
-        if time = :
-            break
-        else:
-            angle = angle + 1
-            left_motor.run_forever(speed_sp=-speed)
-            right_motor.run_forever(speed_sp=speed)
-            time.sleep()
-            left_motor.stop()
-            right_motor.stop(stop_action=stop_action)
 
 
 
