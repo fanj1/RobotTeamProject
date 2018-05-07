@@ -215,6 +215,8 @@ def run_test_make_sounds():
     print('Then press the IR Beacon buttons to make sounds.')
     print()
 
+    make_sounds()
+
 
 def make_sounds():
     """
@@ -228,6 +230,18 @@ def make_sounds():
               "/home/robot/csse120/assets/sounds/awesome_pcm.wav"
        -- BLUE_DOWN button:  The program breaks out of the loop.
     """
+
+    remote = ev3.RemoteControl(channel=3)
+    sound = ev3.Sound
+    while True:
+        if remote.red_up:
+            sound.beep()
+        if remote.red_down:
+            sound.speak('buzai, cnm').wait()
+        if remote.blue_up:
+            sound.play('/home/robot/csse120/assets/sounds/awesome_pcm.wav')
+        if remote.blue_down:
+            break
 
 
 # -----------------------------------------------------------------------------
