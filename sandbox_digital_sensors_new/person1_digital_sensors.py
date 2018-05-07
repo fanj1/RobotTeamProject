@@ -107,7 +107,7 @@ def print_state_of_touch_sensor(n, seconds_per_print):
     """
 
     for k in range(n):
-        a = ev3.TouchSensor.is_pressed()
+        a = ev3.TouchSensor()
         print(a)
         time.sleep(seconds_per_print)
 
@@ -159,7 +159,7 @@ def wait_for_press():
 
     while True:
         a = ev3.TouchSensor.is_pressed()
-        If a == 1:
+        if a == 1:
             break
         time.sleep(0.05)
 
