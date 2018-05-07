@@ -161,8 +161,7 @@ def wait_for_press():
     touch_sensor = ev3.TouchSensor()
 
     while True:
-        a = touch_sensor.is_pressed()
-        if a == 1:
+        if touch_sensor.is_pressed:
             break
         time.sleep(0.05)
 

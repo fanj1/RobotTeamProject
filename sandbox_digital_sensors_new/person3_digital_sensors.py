@@ -33,9 +33,9 @@ def main():
     """ Calls the   TEST   functions in this module. """
     # Uncomment these tests as you proceed through this module.
 
-    # run_test_buttons_on_ir_beacon()
-    # run_test_wait_for_press_on_ir_beacon_button()
-    # run_test_make_sounds()
+    run_test_buttons_on_ir_beacon()
+    run_test_wait_for_press_on_ir_beacon_button()
+    run_test_make_sounds()
 
 
 def run_test_buttons_on_ir_beacon():
