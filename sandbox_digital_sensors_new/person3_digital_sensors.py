@@ -117,7 +117,7 @@ def print_state_of_blue_up_button_on_ir_beacon(n, seconds_per_print):
        2. SLEEPs for the given number of seconds.
     """
 
-    remote = ev3.RemoteControl()
+    remote = ev3.RemoteControl(channel=1)
 
     for k in range(n):
         print(remote.blue_up)
@@ -189,8 +189,16 @@ def wait_for_RED_DOWN_button_press():
             (i.e., when the UP button is pressed).
        2. Sleeps for a small amount (say, 0.05 seconds).
     """
+
+    remote = ev3.RemoteControl(channel=2)
+
+    while True:
+        if remote.red_down:
+            break
+        time.sleep(0.05)
+
     # -------------------------------------------------------------------------
-    # TODO: 4.  Implement and test this function.
+    # DONE: 4.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
 
