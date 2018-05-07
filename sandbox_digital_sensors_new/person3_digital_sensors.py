@@ -228,7 +228,7 @@ def make_sounds():
             (any G-rated message is fine).
        -- BLUE_UP button:    The robot plays the song in the file
               "/home/robot/csse120/assets/sounds/awesome_pcm.wav"
-       -- BLUE_DOWN button:  The program breaks out of the loop.
+       --  BLUE_DOWN button:  The program breaks out of the loop.
     """
 
     remote = ev3.RemoteControl(channel=3)
