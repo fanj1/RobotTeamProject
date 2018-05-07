@@ -180,7 +180,7 @@ def wait_for_up_button_press():
        2. Sleeps for a small amount (say, 0.05 seconds).
     """
     # -------------------------------------------------------------------------
-    # TODO: 4.  Implement and test this function.
+    # DONE: 4.  Implement and test this function.
     #           Tests have been written for you (above).
     # -------------------------------------------------------------------------
     button = ev3.Button()
@@ -203,7 +203,7 @@ def run_test_show_leds():
     print('Press the LEFT, RIGHT, UP, DOWN, and BACKSPACE buttons'
           + ' on the BRICK to change LED states.')
     print()
-
+    show_leds()
 
 def show_leds():
     """
@@ -216,6 +216,22 @@ def show_leds():
        -- DOWN button:  Both LEDs turn off (i.e., to BLACK).
        -- BACKSPACE button: The program breaks out of the loop.
     """
+    button = ev3.Button()
+    while True:
+        if button.left == True:
+            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
+
+        if button.right == True:
+            ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.RED)
+
+        if button.up == True:
+            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.AMBER)
+
+        if button.down == True:
+            ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.BLACK)
+
+        if button.backspace == True:
+            break
 
 
 
