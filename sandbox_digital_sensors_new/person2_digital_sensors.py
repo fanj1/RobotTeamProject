@@ -34,8 +34,8 @@ def main():
     # Uncomment these tests as you proceed through this module.
 
     # run_test_buttons_on_brick()
-    run_test_wait_for_press_on_brick_button()
-    # run_test_show_leds()
+    # run_test_wait_for_press_on_brick_button()
+    run_test_show_leds()
 
 
 def run_test_buttons_on_brick():
@@ -229,6 +229,7 @@ def show_leds():
 
         if button.down == True:
             ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.BLACK)
+            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.BLACK)
 
         if button.backspace == True:
             break
