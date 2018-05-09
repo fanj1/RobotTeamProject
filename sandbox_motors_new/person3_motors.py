@@ -59,15 +59,15 @@ def turn_left_by_encoders(degrees, speed, stop_action):
     """
 
 
-def turn_right_seconds(seconds, speed, stop_action=):
+def turn_right_seconds(seconds, speed, stop_action):
     """ Calls turn_left_seconds with negative speeds to achieve turn_right motion. """
 
 
-def turn_right_by_time(degrees, speed, stop_action=):
+def turn_right_by_time(degrees, speed, stop_action):
     """ Calls turn_left_by_time with negative speeds to achieve turn_right motion. """
 
 
-def turn_right_by_encoders(degrees, speed, stop_action=):
+def turn_right_by_encoders(degrees, speed, stop_action):
     """ Calls turn_left_by_encoders with negative speeds to achieve turn_right motion. """
 
 
