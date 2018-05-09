@@ -37,7 +37,5 @@ class Snatch3r(object):
         self.left_motor.wait_while('running')
         self.right_motor.wait_while('running')
 
-        self.left_motor.stop(stop_action=stop_action)
-        self.right_motor.stop(stop_action=stop_action)
 
 
