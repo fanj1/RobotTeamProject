@@ -28,10 +28,10 @@ class Snatch3r(object):
     def forward(self, inches, speed, stop_action='brake'):
         degrees_motor = 90 * inches
         self.left_motor.run_to_rel_pos(position_sp=degrees_motor,
-                                       spped_sp=speed,
+                                       speed_sp=speed,
                                        stop_action=stop_action)
         self.right_motor.run_to_rel_pos(position_sp=degrees_motor,
-                                        spped_sp=speed,
+                                        speed_sp=speed,
                                         stop_action=stop_action)
 
         self.left_motor.wait_while('running')
