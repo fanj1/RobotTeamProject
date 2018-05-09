@@ -237,7 +237,7 @@ def make_sounds():
         if remote.red_up:
             sound.beep()
         if remote.red_down:
-            sound.speak('buzai, cnm').wait()
+            sound.speak('bu zai, cao ni ma').wait()
         if remote.blue_up:
             sound.play('/home/robot/csse120/assets/sounds/awesome_pcm.wav')
         if remote.blue_down:
