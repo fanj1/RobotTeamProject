@@ -39,4 +39,5 @@ class Snatch3r(object):
 
         self.left_motor.stop()
         self.right_motor.stop()
+        
 
