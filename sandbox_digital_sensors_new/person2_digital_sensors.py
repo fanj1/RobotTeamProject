@@ -218,21 +218,22 @@ def show_leds():
     """
     button = ev3.Button()
     while True:
-        if button.left == True:
+        if button.backspace == True:
+            break
+        elif button.left == True:
             ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
 
-        if button.right == True:
+        elif button.right == True:
             ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.RED)
 
-        if button.up == True:
+        elif button.up == True:
             ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.AMBER)
 
-        if button.down == True:
+        elif button.down == True:
             ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.BLACK)
             ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.BLACK)
 
-        if button.backspace == True:
-            break
+
 
 
 
