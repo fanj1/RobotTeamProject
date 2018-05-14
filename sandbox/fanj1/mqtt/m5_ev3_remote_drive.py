@@ -50,6 +50,22 @@ class MyDelegate(object):
         assert right_motor.connected
         right_motor.run_forever(speed_sp=speed)
 
+    def arm_up(self):
+        arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
+        assert arm_motor.connected
+        arm_motor.run_forever(speed_sp=50)
+        touch_sensor = ev3.TouchSensor()
+        while touch_sensor:
+            arm_motor.stop("hold")
+
+    def arm_down(self):
+        arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
+        assert arm_motor.connected
+        arm_motor.run_forever(speed_sp=50)
+        touch_sensor = ev3.TouchSensor()
+        while touch_sensor:
+            arm_motor.stop("hold")
+
     def loop_forever(self):
         while self.running:
             time.sleep(0.1)
