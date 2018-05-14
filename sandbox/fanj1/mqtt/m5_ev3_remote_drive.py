@@ -44,7 +44,7 @@ class MyDelegate(object):
         left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         assert left_motor.connected
         left_motor.run_forever(speed_sp=speed)
-                
+
     def go_forward_right(self, speed):
         right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         assert right_motor.connected
