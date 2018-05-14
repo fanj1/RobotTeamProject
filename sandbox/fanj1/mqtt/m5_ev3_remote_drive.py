@@ -90,8 +90,12 @@ class Snatch3r(object):
         arm_motor.stop()
 
     def loop_forever(self):
+        self.running = True
         while self.running:
             time.sleep(0.1)
+
+    def shutdown(self):
+        self.running = False
 
 
 def main():
@@ -109,8 +113,8 @@ def main():
     robot.loop_forever()  # Calls a function that has a while True: loop within it to avoid letting the program end.
 
 
-
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
+
 main()
