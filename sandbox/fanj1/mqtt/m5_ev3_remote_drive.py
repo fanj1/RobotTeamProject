@@ -40,15 +40,39 @@ class MyDelegate(object):
     def __init__(self):
         self.running = True
 
-    def go_forward_left(self, speed):
+    def go_forward(self, left_speed, right_speed):
         left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         assert left_motor.connected
-        left_motor.run_forever(speed_sp=speed)
-
-    def go_forward_right(self, speed):
+        left_motor.run_forever(speed_sp=left_speed)
         right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         assert right_motor.connected
-        right_motor.run_forever(speed_sp=speed)
+        right_motor.run_forever(speed_sp=right_speed)
+
+    def turn_left(self, right_speed):
+        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        assert right_motor.connected
+        right_motor.run_forever(speed_sp=right_speed)
+
+    def turn_right(self, left_speed):
+        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        assert left_motor.connected
+        left_motor.run_forever(speed_sp=left_speed)
+
+    def stop(self):
+        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        assert left_motor.connected
+        left_motor.stop()
+        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        assert right_motor.connected
+        right_motor.stop()
+
+    def go_backward(self, left_speed, right_speed):
+        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        assert left_motor.connected
+        left_motor.run_forever(speed_sp=left_speed * (- 1))
+        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        assert right_motor.connected
+        right_motor.run_forever(speed_sp=right_speed * (- 1))
 
     def arm_up(self):
         arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
@@ -56,15 +80,14 @@ class MyDelegate(object):
         arm_motor.run_forever(speed_sp=50)
         touch_sensor = ev3.TouchSensor()
         while touch_sensor:
-            arm_motor.stop("hold")
+            arm_motor.stop()
 
     def arm_down(self):
         arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
         assert arm_motor.connected
-        arm_motor.run_forever(speed_sp=50)
-        touch_sensor = ev3.TouchSensor()
-        while touch_sensor:
-            arm_motor.stop("hold")
+        arm_motor.run_forever(speed_sp=- 50)
+        time.wait = 5
+        arm_motor.stop()
 
     def loop_forever(self):
         while self.running:
@@ -87,7 +110,6 @@ def main():
     # mqtt_client.connect_to_pc("35.194.247.175")  # Off campus IP address of a GCP broker
 
     robot.loop_forever()  # Calls a function that has a while True: loop within it to avoid letting the program end.
-
 
 
 # ----------------------------------------------------------------------
