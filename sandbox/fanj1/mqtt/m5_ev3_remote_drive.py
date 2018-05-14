@@ -67,12 +67,14 @@ class Snatch3r(object):
         right_motor.stop()
 
     def go_backward(self, left_speed, right_speed):
+        left_speed_b = - left_speed
+        right_speed_b = - right_speed
         left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         assert left_motor.connected
-        left_motor.run_forever(speed_sp=left_speed * (- 1))
+        left_motor.run_forever(speed_sp=left_speed_b)
         right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         assert right_motor.connected
-        right_motor.run_forever(speed_sp=right_speed * (- 1))
+        right_motor.run_forever(speed_sp=right_speed_b)
 
     def arm_up(self):
         arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
@@ -85,7 +87,7 @@ class Snatch3r(object):
     def arm_down(self):
         arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
         assert arm_motor.connected
-        arm_motor.run_forever(speed_sp=- 50)
+        arm_motor.run_forever(speed_sp=-50)
         time.wait = 5
         arm_motor.stop()
 
@@ -105,7 +107,7 @@ def main():
     print("--------------------------------------------")
     ev3.Sound.speak("Let's go").wait()
 
-    robot = robo.Snatch3r()
+    robot = Snatch3r()
     mqtt_client = com.MqttClient(robot)
     mqtt_client.connect_to_pc()
     # mqtt_client.connect_to_pc("35.194.247.175")  # Off campus IP address of a GCP broker
