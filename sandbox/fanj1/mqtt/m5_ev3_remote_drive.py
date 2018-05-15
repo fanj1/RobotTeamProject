@@ -39,56 +39,43 @@ class Snatch3r(object):
 
     def __init__(self):
         self.running = True
+        self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        assert self.left_motor.connected
+        self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        assert self.right_motor.connected
+        self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
+        assert self.arm_motor.connected
 
     def go_forward(self, left_speed, right_speed):
-        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-        assert left_motor.connected
-        left_motor.run_forever(speed_sp=left_speed)
-        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
-        assert right_motor.connected
-        right_motor.run_forever(speed_sp=right_speed)
+        self.left_motor.run_forever(speed_sp=left_speed)
+        self.right_motor.run_forever(speed_sp=right_speed)
 
     def turn_left(self, right_speed):
-        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
-        assert right_motor.connected
-        right_motor.run_forever(speed_sp=right_speed)
+        self.right_motor.run_forever(speed_sp=right_speed)
 
     def turn_right(self, left_speed):
-        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-        assert left_motor.connected
-        left_motor.run_forever(speed_sp=left_speed)
+        self.left_motor.run_forever(speed_sp=left_speed)
 
     def stop(self):
-        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-        assert left_motor.connected
-        left_motor.stop()
-        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
-        assert right_motor.connected
-        right_motor.stop()
+        self.left_motor.stop()
+        self.right_motor.stop()
 
     def go_backward(self, left_speed, right_speed):
-        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-        assert left_motor.connected
-        left_motor.run_forever(speed_sp=-left_speed)
-        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
-        assert right_motor.connected
-        right_motor.run_forever(speed_sp=-right_speed)
+        self.left_motor.run_forever(speed_sp=-left_speed)
+        self.right_motor.run_forever(speed_sp=-right_speed)
 
     def arm_up(self):
         speed = 500
-        arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
-        assert arm_motor.connected
-        arm_motor.run_forever(speed_sp=speed)
-        time.wait = 5
-        arm_motor.stop(stop_action='hold')
+        self.arm_motor.run_forever(speed_sp=speed)
+        touch = ev3.TouchSensor
+        if touch.is_pressed:
+            self.arm_motor.stop(stop_action='hold')
 
     def arm_down(self):
         speed = -500
-        arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
-        assert arm_motor.connected
-        arm_motor.run_forever(speed_sp=speed)
+        self.arm_motor.run_forever(speed_sp=speed)
         time.wait = 5
-        arm_motor.stop()
+        self.arm_motor.stop()
 
     def loop_forever(self):
         self.running = True
