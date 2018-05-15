@@ -75,16 +75,18 @@ class Snatch3r(object):
         right_motor.run_forever(speed_sp=-right_speed)
 
     def arm_up(self):
-        arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
+        speed = 500
+        arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         assert arm_motor.connected
-        arm_motor.run_forever(speed_sp=50)
+        arm_motor.run_forever(speed_sp=speed)
         time.wait = 5
-        arm_motor.stop(stopaction='hold')
+        arm_motor.stop(stop_action='hold')
 
     def arm_down(self):
-        arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
+        speed = -500
+        arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         assert arm_motor.connected
-        arm_motor.run_forever(speed_sp=-50)
+        arm_motor.run_forever(speed_sp=speed)
         time.wait = 5
         arm_motor.stop()
 
