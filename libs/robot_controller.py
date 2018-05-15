@@ -24,6 +24,7 @@ class Snatch3r(object):
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         assert self.left_motor.connected
         assert self.right_motor.connected
+        self.running = True
 
     def forward(self, inches, speed, stop_action='brake'):
         degrees_motor = 88 * inches
@@ -37,5 +38,61 @@ class Snatch3r(object):
         self.left_motor.wait_while('running')
         self.right_motor.wait_while('running')
 
+    def go_forward(self, left_speed, right_speed):
+        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        assert left_motor.connected
+        left_motor.run_forever(speed_sp=left_speed)
+        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        assert right_motor.connected
+        right_motor.run_forever(speed_sp=right_speed)
 
+    def turn_left(self, right_speed):
+        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        assert right_motor.connected
+        right_motor.run_forever(speed_sp=right_speed)
 
+    def turn_right(self, left_speed):
+        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        assert left_motor.connected
+        left_motor.run_forever(speed_sp=left_speed)
+
+    def stop(self):
+        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        assert left_motor.connected
+        left_motor.stop()
+        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        assert right_motor.connected
+        right_motor.stop()
+
+    def go_backward(self, left_speed, right_speed):
+        left_speed_b = - left_speed
+        right_speed_b = - right_speed
+        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        assert left_motor.connected
+        left_motor.run_forever(speed_sp=left_speed_b)
+        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        assert right_motor.connected
+        right_motor.run_forever(speed_sp=right_speed_b)
+
+    def arm_up(self):
+        arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
+        assert arm_motor.connected
+        arm_motor.run_forever(speed_sp=50)
+        touch_sensor = ev3.TouchSensor()
+        while touch_sensor:
+            arm_motor.stop()
+
+    def arm_down(self):
+        arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
+        assert arm_motor.connected
+        arm_motor.run_forever(speed_sp=-50)
+        time.wait = 5
+        arm_motor.stop()
+
+    def loop_forever(self):
+        self.running = True
+        while self.running:
+            time.sleep(0.1)
+
+    def shutdown(self):
+        self.running = False
