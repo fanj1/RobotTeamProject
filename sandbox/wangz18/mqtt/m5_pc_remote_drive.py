@@ -145,13 +145,13 @@ def go_backward(mqtt_client, left_speed_entry, right_speed_entry):
     print("backward")
     mqtt_client.send_message("go_backward",[left_speed_entry.get(),right_speed_entry.get()])
 
-def turn_left(mqtt_client, left_speed_entry, right_speed_entry):
+def turn_left(mqtt_client, right_speed_entry):
     print("left")
     mqtt_client.send_message("turn_left",[right_speed_entry.get()])
 
-def turn_right(mqtt_client, left_speed_entry, right_speed_entry):
+def turn_right(mqtt_client, left_speed_entry):
     print("right")
-    mqtt_client.send_message("turn_right",[left_speed_entry.get(),right_speed_entry.get()])
+    mqtt_client.send_message("turn_right",[left_speed_entry.get()])
 
 def stop(mqtt_client):
     print("stop")
