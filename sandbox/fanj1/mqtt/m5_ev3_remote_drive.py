@@ -74,15 +74,15 @@ class Snatch3r(object):
         assert right_motor.connected
         right_motor.run_forever(speed_sp=-right_speed)
 
-    def send_up(self):
+    def arm_up(self):
         arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
         assert arm_motor.connected
         arm_motor.run_forever(speed_sp=50)
         touch_sensor = ev3.TouchSensor()
         while touch_sensor:
-            arm_motor.stop()
+            arm_motor.stop(stopaction='hold')
 
-    def send_down(self):
+    def arm_down(self):
         arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
         assert arm_motor.connected
         arm_motor.run_forever(speed_sp=-50)
