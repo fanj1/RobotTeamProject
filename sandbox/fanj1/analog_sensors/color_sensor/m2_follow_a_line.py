@@ -29,7 +29,7 @@ def main():
 
     # DONE: 4: After running the code set the default white and black levels to a better initial guess.
     #   Once you have the values hardcoded to resonable numbers here you don't really need the w and b commands below.
-    white_level = 4
+    white_level = 3
     black_level = 1
     robot = robo.Snatch3r()
     color_sensor = ev3.ColorSensor()
@@ -80,24 +80,13 @@ def follow_the_line(robot, white_level, black_level):
       :type black_level: int
     """
 
-
-
     while not robot.touch_sensor.is_pressed:
-
-
-    while True:
-        robot.go_forward(100, 100)
-        time.sleep(0.5)
-        while color_sensor.ambient_light_intensity == white_level:
+        intensity = robot.color_sensor.ambient_light_intensity
+        if intensity >= white_level:
             robot.stop()
-            while True:
-                robot.turn_left(100, 100)
-                time.sleep(0.5)
-                if color_sensor.ambient_light_intensity == black_level:
-                    robot.stop()
-                    break
-        if touch_sensor.is_pressed:
-            break
+            robot.turn_left(100, 100)
+        else:
+            robot.go_forward(100, 100)
 
     # DONE: 5. Use the calibrated values for white and black to calculate a light threshold to determine if your robot
     # should drive straight or turn to the right.  You will need to test and refine your code until it works well.
