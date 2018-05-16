@@ -9,7 +9,8 @@ import robot_controller as robo
 import ev3dev.ev3 as ev3
 import time
 
-class something(object):
+
+class Cleaner(object):
 
     def __init__(self):
         self.count = 0
@@ -42,7 +43,7 @@ def main():
     print("--------------------------------------------")
     ev3.Sound.speak("Let's go").wait()
 
-    robot = something
+    robot = Cleaner
     mqtt_client = com.MqttClient(robot)
     mqtt_client.connect_to_pc()
 
