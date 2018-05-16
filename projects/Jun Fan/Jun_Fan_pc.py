@@ -6,7 +6,7 @@ Author: Jun Fan
 
 import tkinter
 from tkinter import ttk
-
+import robot_controller as robo
 import mqtt_remote_method_calls as com
 
 
@@ -62,13 +62,17 @@ def stop(mqtt_client):
     mqtt_client.send_message("stop")
 
 
-# Quit and Exit button callbacks
 def quit_program(mqtt_client, shutdown_ev3):
     if shutdown_ev3:
         print("shutdown")
         mqtt_client.send_message("shutdown")
     mqtt_client.close()
     exit()
+
+
+def feedback(count):
+    print('Cleaned one rubbish! Total amount cleaned:', count)
+    print()
 
 
 # ----------------------------------------------------------------------
