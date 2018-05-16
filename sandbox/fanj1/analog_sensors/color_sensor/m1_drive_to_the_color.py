@@ -40,6 +40,10 @@ class DataContainer(object):
 
     def __init__(self):
         self.running = True
+        self.robot = robo.Snatch3r()
+
+
+
 
 
 def main():
