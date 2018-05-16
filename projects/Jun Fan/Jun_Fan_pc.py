@@ -1,0 +1,77 @@
+"""
+This is the final project of CSSE120, 2018 Spring
+
+Author: Jun Fan
+"""
+
+import tkinter
+from tkinter import ttk
+
+import mqtt_remote_method_calls as com
+
+
+def main():
+    # DONE: 2. Setup an mqtt_client.  Notice that since you don't need to receive any messages you do NOT need to have
+    # a MyDelegate class.  Simply construct the MqttClient with no parameter in the constructor (easy).
+
+    root = tkinter.Tk()
+    root.title("MQTT Remote")
+
+    main_frame = ttk.Frame(root, padding=20, relief='raised')
+    main_frame.grid()
+
+    speed_label = ttk.Label(main_frame, text="Speed")
+    speed_label.grid(row=0, column=1)
+    speed_entry = ttk.Entry(main_frame, width=8)
+    speed_entry.insert(0, "100")
+    speed_entry.grid(row=1, column=1)
+
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
+
+    # Buttons for start
+    start_button = ttk.Button(main_frame, text="Start")
+    start_button.grid(row=3, column=0)
+    start_button['command'] = lambda: start(mqtt_client, speed_entry)
+    root.bind('<Up>', lambda event: start(mqtt_client, speed_entry))
+
+    stop_button = ttk.Button(main_frame, text="Stop")
+    stop_button.grid(row=4, column=1)
+    stop_button['command'] = lambda: stop(mqtt_client)
+    root.bind('<Up>', lambda event: stop(mqtt_client))
+
+    # Buttons for quit and exit
+    q_button = ttk.Button(main_frame, text="Quit")
+    q_button.grid(row=5, column=0)
+    q_button['command'] = (lambda: quit_program(mqtt_client, False))
+
+    e_button = ttk.Button(main_frame, text="Exit")
+    e_button.grid(row=6, column=1)
+    e_button['command'] = (lambda: quit_program(mqtt_client, True))
+
+    root.mainloop()
+
+
+def start(mqtt_client, speed_entry):
+    print("start")
+    mqtt_client.send_message("start", [speed_entry.get()])
+
+
+def stop(mqtt_client):
+    print("stop")
+    mqtt_client.send_message("stop")
+
+
+# Quit and Exit button callbacks
+def quit_program(mqtt_client, shutdown_ev3):
+    if shutdown_ev3:
+        print("shutdown")
+        mqtt_client.send_message("shutdown")
+    mqtt_client.close()
+    exit()
+
+
+# ----------------------------------------------------------------------
+# Calls  main  to start the ball rolling.
+# ----------------------------------------------------------------------
+main()
