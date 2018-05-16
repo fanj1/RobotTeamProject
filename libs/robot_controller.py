@@ -20,79 +20,51 @@ class Snatch3r(object):
     """Commands for the Snatch3r robot that might be useful in many different programs."""
 
     def __init__(self):
-        self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-        self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
-        assert self.left_motor.connected
-        assert self.right_motor.connected
         self.running = True
-
-    def forward(self, inches, speed, stop_action='brake'):
-        degrees_motor = 88 * inches
-        self.left_motor.run_to_rel_pos(position_sp=degrees_motor,
-                                       speed_sp=speed,
-                                       stop_action=stop_action)
-        self.right_motor.run_to_rel_pos(position_sp=degrees_motor,
-                                        speed_sp=speed,
-                                        stop_action=stop_action)
-
-        self.left_motor.wait_while('running')
-        self.right_motor.wait_while('running')
+        self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        assert self.left_motor.connected
+        self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        assert self.right_motor.connected
+        self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
+        assert self.arm_motor.connected
+        self.touch = ev3.TouchSensor()
 
     def go_forward(self, left_speed, right_speed):
-        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-        assert left_motor.connected
-        left_motor.run_forever(speed_sp=left_speed)
-        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
-        assert right_motor.connected
-        right_motor.run_forever(speed_sp=right_speed)
+        self.left_motor.run_forever(speed_sp=left_speed)
+        self.right_motor.run_forever(speed_sp=right_speed)
 
     def turn_left(self, right_speed):
-        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
-        assert right_motor.connected
-        right_motor.run_forever(speed_sp=right_speed)
+        self.right_motor.run_forever(speed_sp=right_speed)
 
     def turn_right(self, left_speed):
-        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-        assert left_motor.connected
-        left_motor.run_forever(speed_sp=left_speed)
+        self.left_motor.run_forever(speed_sp=left_speed)
 
     def stop(self):
-        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-        assert left_motor.connected
-        left_motor.stop()
-        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
-        assert right_motor.connected
-        right_motor.stop()
+        self.left_motor.stop()
+        self.right_motor.stop()
 
     def go_backward(self, left_speed, right_speed):
-        left_speed_b = - left_speed
-        right_speed_b = - right_speed
-        left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
-        assert left_motor.connected
-        left_motor.run_forever(speed_sp=left_speed_b)
-        right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
-        assert right_motor.connected
-        right_motor.run_forever(speed_sp=right_speed_b)
+        self.left_motor.run_forever(speed_sp=-left_speed)
+        self.right_motor.run_forever(speed_sp=-right_speed)
 
     def arm_up(self):
-        arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
-        assert arm_motor.connected
-        arm_motor.run_forever(speed_sp=50)
-        touch_sensor = ev3.TouchSensor()
-        while touch_sensor:
-            arm_motor.stop()
+        speed = 900
+        self.arm_motor.run_forever(speed_sp=speed)
+        while True:
+            if self.touch.is_pressed:
+                self.arm_motor.stop(stop_action='hold')
+                ev3.Sound.speak("in position").wait()
+                break
 
     def arm_down(self):
-        arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
-        assert arm_motor.connected
-        arm_motor.run_forever(speed_sp=-50)
-        time.wait = 5
-        arm_motor.stop()
+        speed = -900
+        pos = -13000
+        self.arm_motor.run_to_rel_pos(position=pos, speed_sp=speed)
 
     def loop_forever(self):
         self.running = True
         while self.running:
-            time.sleep(0.1)
+            time.sleep(0.01)
 
     def shutdown(self):
         self.running = False
