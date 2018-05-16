@@ -31,6 +31,8 @@ class Snatch3r(object):
         assert self.touch_sensor.connected
         self.ir_sensor = ev3.InfraredSensor()
         assert self.ir_sensor.connected
+        self.color_sensor = ev3.ColorSensor()
+        assert self.color_sensor
 
     def go_forward(self, left_speed, right_speed):
         self.left_motor.run_forever(speed_sp=left_speed)
