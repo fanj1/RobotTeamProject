@@ -27,7 +27,10 @@ class Snatch3r(object):
         assert self.right_motor.connected
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         assert self.arm_motor.connected
-        self.touch = ev3.TouchSensor()
+        self.touch_sensor = ev3.TouchSensor()
+        assert self.touch_sensor.connected
+        self.ir_sensor = ev3.InfraredSensor()
+        assert self.ir_sensor.connected
 
     def go_forward(self, left_speed, right_speed):
         self.left_motor.run_forever(speed_sp=left_speed)
@@ -51,7 +54,7 @@ class Snatch3r(object):
         speed = 900
         self.arm_motor.run_forever(speed_sp=speed)
         while True:
-            if self.touch.is_pressed:
+            if self.touch_sensor.is_pressed:
                 self.arm_motor.stop(stop_action='hold')
                 ev3.Sound.speak("in position").wait()
                 break
