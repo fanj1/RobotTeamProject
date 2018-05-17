@@ -76,25 +76,27 @@ class Snatch3r(object):
     def shutdown(self):
         self.running = False
 
-    def follow_black_line(self, white_level, black_level):
+    def follow_black_line(self, white_level, black_level, speed):
+        speed = int(speed)
         while True:
             intensity = self.color_sensor.ambient_light_intensity
             if intensity >= white_level:
                 self.stop()
-                self.turn_left(100, 200)
+                self.turn_left(speed / 2, speed)
                 time.sleep(0.3)
             elif intensity <= black_level:
-                self.go_forward(200, 200)
+                self.go_forward(speed, speed)
 
-    def follow_white_line(self, white_level, black_level):
+    def follow_white_line(self, white_level, black_level, speed):
+        speed = int(speed)
         while True:
             intensity = self.color_sensor.ambient_light_intensity
             if intensity <= black_level:
                 self.stop()
-                self.turn_left(100, 200)
+                self.turn_left(speed / 2, speed)
                 time.sleep(0.3)
             elif intensity >= white_level:
-                self.go_forward(200, 200)
+                self.go_forward(speed, speed)
 
     def seek_beacon(self):
         beacon_seeker = ev3.BeaconSeeker(channel=1)

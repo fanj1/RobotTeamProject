@@ -29,7 +29,7 @@ class Cleaner(object):
         self.run = True
         while not self.run:
             if distance > 5:
-                self.robot.follow_line(3, 1)
+                self.robot.follow_white_line(3, 1, 200)
             if distance < 5:
                 self.robot.arm_up()
                 self.robot.turn_right(speed, speed)
