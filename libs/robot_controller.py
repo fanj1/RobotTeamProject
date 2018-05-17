@@ -99,7 +99,7 @@ class Snatch3r(object):
                     print("On the right heading. Distance: ", current_distance)
                     if current_distance <= 1:
                         self.go_forward(forward_speed, forward_speed)
-                        time.sleep(1.5)
+                        time.sleep(1)
                         self.stop()
                         return True
 

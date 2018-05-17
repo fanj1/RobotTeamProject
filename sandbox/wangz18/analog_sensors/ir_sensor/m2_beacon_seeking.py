@@ -94,7 +94,7 @@ def seek_beacon(robot):
                 print("On the right heading. Distance: ", current_distance)
                 if current_distance <= 1:
                     robot.go_forward(forward_speed,forward_speed)
-                    time.sleep(1.5)
+                    time.sleep(1)
                     robot.stop()
                     return True
 
