@@ -82,7 +82,7 @@ class Snatch3r(object):
             if intensity >= white_level:
                 self.stop()
                 self.turn_left(100, 200)
-                time.sleep(0.5)
+                time.sleep(0.3)
             elif intensity <= black_level:
                 self.go_forward(200, 200)
 

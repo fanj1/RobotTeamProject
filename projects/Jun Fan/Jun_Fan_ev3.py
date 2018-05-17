@@ -24,11 +24,16 @@ class Cleaner(object):
             time.sleep(0.01)
 
     def start(self, speed):
-        speed = speed
+        speed = int(speed)
+        distance = self.robot.ir_sensor.proximity
         self.run = True
         while not self.run:
-            self.robot.go_forward(speed, speed)
-            if self.robot.ir
+            if distance > 5:
+                self.robot.follow_line(3, 1)
+            if distance < 5:
+                self.robot.arm_up()
+                self.robot.turn_right(speed, speed - 100)
+
 
     def stop(self):
         self.run = False
