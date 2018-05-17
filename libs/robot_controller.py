@@ -77,7 +77,7 @@ class Snatch3r(object):
         self.running = False
 
     def follow_line(self, white_level, black_level):
-        while not self.touch_sensor.is_pressed:
+        while True:
             intensity = self.color_sensor.ambient_light_intensity
             if intensity >= white_level:
                 self.stop()

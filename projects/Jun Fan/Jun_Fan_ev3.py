@@ -28,7 +28,7 @@ class Cleaner(object):
         self.run = True
         while not self.run:
             self.robot.go_forward(speed, speed)
-            if
+            if self.robot.ir
 
     def stop(self):
         self.run = False
