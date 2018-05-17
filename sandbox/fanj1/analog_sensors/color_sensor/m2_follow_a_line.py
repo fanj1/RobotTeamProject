@@ -84,9 +84,10 @@ def follow_the_line(robot, white_level, black_level):
         intensity = robot.color_sensor.ambient_light_intensity
         if intensity >= white_level:
             robot.stop()
-            robot.turn_left(100, 100)
+            robot.turn_left(100, 200)
+            time.sleep(0.5)
         elif intensity <= black_level:
-            robot.go_forward(100, 100)
+            robot.go_forward(200, 200)
 
     # DONE: 5. Use the calibrated values for white and black to calculate a light threshold to determine if your robot
     # should drive straight or turn to the right.  You will need to test and refine your code until it works well.

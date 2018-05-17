@@ -16,7 +16,7 @@ class Cleaner(object):
         self.count = 0
         self.running = True
         self.run = True
-        self.robot = robo.Snatch3r
+        self.robot = robo.Snatch3r()
 
     def loop_forever(self):
         self.running = True
@@ -28,6 +28,7 @@ class Cleaner(object):
         self.run = True
         while not self.run:
             self.robot.go_forward(speed, speed)
+            if
 
     def stop(self):
         self.run = False
@@ -44,7 +45,7 @@ def main():
     ev3.Sound.speak("Let's go").wait()
 
     robot = Cleaner
-    mqtt_client = com.MqttClient(robot)
+    mqtt_client = com.MqttClient(Cleaner)
     mqtt_client.connect_to_pc()
 
     robot.loop_forever()
