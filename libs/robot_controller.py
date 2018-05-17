@@ -76,7 +76,7 @@ class Snatch3r(object):
     def shutdown(self):
         self.running = False
 
-    def follow_line(self, white_level, black_level):
+    def follow_black_line(self, white_level, black_level):
         while True:
             intensity = self.color_sensor.ambient_light_intensity
             if intensity >= white_level:
@@ -84,6 +84,16 @@ class Snatch3r(object):
                 self.turn_left(100, 200)
                 time.sleep(0.3)
             elif intensity <= black_level:
+                self.go_forward(200, 200)
+
+    def follow_white_line(self, white_level, black_level):
+        while True:
+            intensity = self.color_sensor.ambient_light_intensity
+            if intensity <= black_level:
+                self.stop()
+                self.turn_left(100, 200)
+                time.sleep(0.3)
+            elif intensity >= white_level:
                 self.go_forward(200, 200)
 
     def seek_beacon(self):
