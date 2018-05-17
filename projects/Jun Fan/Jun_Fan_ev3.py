@@ -32,6 +32,7 @@ class Cleaner(object):
                 self.robot.follow_white_line(3, 1, 200)
             if distance < 5:
                 self.robot.arm_up()
+                ev3.Sound.speak("picked up one rubbish").wait()
                 self.robot.turn_right(speed, speed)
                 time.sleep(2)
                 self.robot.stop()
