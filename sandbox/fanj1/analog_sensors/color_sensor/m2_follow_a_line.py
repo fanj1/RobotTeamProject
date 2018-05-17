@@ -85,7 +85,7 @@ def follow_the_line(robot, white_level, black_level):
         if intensity >= white_level:
             robot.stop()
             robot.turn_left(100, 100)
-        else:
+        elif intensity <= black_level:
             robot.go_forward(100, 100)
 
     # DONE: 5. Use the calibrated values for white and black to calculate a light threshold to determine if your robot
