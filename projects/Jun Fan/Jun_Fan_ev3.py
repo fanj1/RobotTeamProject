@@ -59,7 +59,7 @@ def main():
     ev3.Sound.speak("Let's go").wait()
 
     robot = Cleaner
-    mqtt_client = com.MqttClient(Cleaner)
+    mqtt_client = com.MqttClient(robot)
     mqtt_client.connect_to_pc()
 
     robot.loop_forever()
