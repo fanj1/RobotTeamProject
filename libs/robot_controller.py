@@ -33,6 +33,7 @@ class Snatch3r(object):
         assert self.ir_sensor.connected
         self.color_sensor = ev3.ColorSensor()
         assert self.color_sensor
+        self.line = False
 
     def go_forward(self, left_speed, right_speed):
         self.left_motor.run_forever(speed_sp=left_speed)
@@ -78,6 +79,7 @@ class Snatch3r(object):
 
     def follow_black_line(self, white_level, black_level, speed):
         speed = int(speed)
+        self.line = False
         while True:
             intensity = self.color_sensor.ambient_light_intensity
             if intensity >= white_level:
@@ -86,6 +88,8 @@ class Snatch3r(object):
                 time.sleep(0.3)
             elif intensity <= black_level:
                 self.go_forward(speed, speed)
+            if self.line:
+                break
 
     def follow_white_line(self, white_level, black_level, speed):
         speed = int(speed)
