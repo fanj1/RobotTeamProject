@@ -24,12 +24,18 @@ class Delegate(object):
             time.sleep(0.01)
 
     def start(self, speed, number):
+        ev3.Sound.speak("start cleaning").wait()
         speed = int(speed)
-        distance = self.robot.ir_sensor.proximity
-        self.run = True
-        while not self.run:
+        while self.run:
+            distance = self.robot.ir_sensor.proximity
+            if not self.run:
+                self.robot.stop()
+                ev3.Sound.speak("stop").wait()
+                break
             if distance > 5:
-                self.robot.follow_white_line(3, 1, 200)
+                white_level = 3
+                black_level = 1
+                self.robot.follow_black_line(white_level, black_level, speed)
             if distance < 5:
                 self.robot.arm_up()
                 self.robot.turn_right(speed, speed)
