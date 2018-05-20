@@ -10,15 +10,13 @@ import ev3dev.ev3 as ev3
 import time
 
 
-class Cleaner(object):
+class Delegate(object):
 
     def __init__(self):
         self.count = 0
         self.running = True
         self.run = True
         self.robot = robo.Snatch3r()
-        self.mqtt_client = com.MqttClient(robot)
-        self.mqtt_client.connect_to_pc()
 
     def loop_forever(self):
         self.running = True
@@ -49,10 +47,8 @@ class Cleaner(object):
                 if self.count == number:
                     self.robot.stop()
                     ev3.Sound.speak("picked up all rubbish").wait()
-                    self.mqtt_client.send_message("one")
                     break
                 ev3.Sound.speak("picked up one rubbish").wait()
-                self.mqtt_client.send_message("all")
 
     def stop(self):
         self.run = False
@@ -68,11 +64,11 @@ def main():
     print("--------------------------------------------")
     ev3.Sound.speak("Let's go").wait()
 
-    robot = Cleaner
+    robot = Delegate()
     mqtt_client = com.MqttClient(robot)
     mqtt_client.connect_to_pc()
 
-    Cleaner.loop_forever()
+    robot.loop_forever()
 
 
 main()

@@ -34,14 +34,12 @@ def main():
 
     mqtt_client = com.MqttClient()
     mqtt_client.connect_to_ev3()
-    mqtt_client_2 = com.MqttClient(Pc)
-    mqtt_client_2.connect_to_ev3()
 
     # Buttons for start
     start_button = ttk.Button(main_frame, text="Start")
     start_button.grid(row=3, column=0)
-    start_button['command'] = lambda: start(mqtt_client, speed_entry)
-    root.bind('<Up>', lambda event: start(mqtt_client, speed_entry))
+    start_button['command'] = lambda: start(mqtt_client, speed_entry, number_entry)
+    root.bind('<Up>', lambda event: start(mqtt_client, speed_entry, number_entry))
 
     stop_button = ttk.Button(main_frame, text="Stop")
     stop_button.grid(row=4, column=1)
@@ -58,20 +56,6 @@ def main():
     e_button['command'] = (lambda: quit_program(mqtt_client, True))
 
     root.mainloop()
-
-
-class Pc(object):
-
-    def __init__(self):
-        self.count = 0
-
-    def one(self):
-        print('picked up one rubbish')
-        print()
-
-    def all(self):
-        print('picked up all rubbish')
-        print()
 
 
 def start(mqtt_client, speed_entry, number_entry):
