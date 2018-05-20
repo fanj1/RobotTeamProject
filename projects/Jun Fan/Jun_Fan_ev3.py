@@ -17,13 +17,15 @@ class Cleaner(object):
         self.running = True
         self.run = True
         self.robot = robo.Snatch3r()
+        self.mqtt_client = com.MqttClient(robot)
+        self.mqtt_client.connect_to_pc()
 
     def loop_forever(self):
         self.running = True
         while self.running:
             time.sleep(0.01)
 
-    def start(self, speed):
+    def start(self, speed, number):
         speed = int(speed)
         distance = self.robot.ir_sensor.proximity
         self.run = True
@@ -32,18 +34,25 @@ class Cleaner(object):
                 self.robot.follow_white_line(3, 1, 200)
             if distance < 5:
                 self.robot.arm_up()
-                ev3.Sound.speak("picked up one rubbish").wait()
                 self.robot.turn_right(speed, speed)
                 time.sleep(2)
-                self.robot.stop()
-                self.robot.arm_down()
                 self.robot.go_forward(speed, speed)
                 time.sleep(1)
+                self.robot.stop()
+                self.robot.arm_down()
                 self.robot.go_backward(speed, speed)
                 time.sleep(1)
                 self.robot.turn_left(speed, speed)
                 time.sleep(2)
                 self.robot.stop()
+                self.count = self.count + 1
+                if self.count == number:
+                    self.robot.stop()
+                    ev3.Sound.speak("picked up all rubbish").wait()
+                    self.mqtt_client.send_message("one")
+                    break
+                ev3.Sound.speak("picked up one rubbish").wait()
+                self.mqtt_client.send_message("all")
 
     def stop(self):
         self.run = False
@@ -63,7 +72,7 @@ def main():
     mqtt_client = com.MqttClient(robot)
     mqtt_client.connect_to_pc()
 
-    robot.loop_forever()
+    Cleaner.loop_forever()
 
 
 main()

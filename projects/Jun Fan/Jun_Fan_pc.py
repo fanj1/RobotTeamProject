@@ -23,11 +23,19 @@ def main():
     speed_label = ttk.Label(main_frame, text="Speed")
     speed_label.grid(row=0, column=1)
     speed_entry = ttk.Entry(main_frame, width=8)
-    speed_entry.insert(0, "100")
+    speed_entry.insert(0, "200")
     speed_entry.grid(row=1, column=1)
+
+    number_label = ttk.Label(main_frame, text="Number to pick up")
+    number_label.grid(row=0, column=0)
+    number_entry = ttk.Entry(main_frame, width=8)
+    number_entry.insert(0, "3")
+    number_entry.grid(row=1, column=0)
 
     mqtt_client = com.MqttClient()
     mqtt_client.connect_to_ev3()
+    mqtt_client_2 = com.MqttClient(Pc)
+    mqtt_client_2.connect_to_ev3()
 
     # Buttons for start
     start_button = ttk.Button(main_frame, text="Start")
@@ -52,9 +60,23 @@ def main():
     root.mainloop()
 
 
-def start(mqtt_client, speed_entry):
+class Pc(object):
+
+    def __init__(self):
+        self.count = 0
+
+    def one(self):
+        print('picked up one rubbish')
+        print()
+
+    def all(self):
+        print('picked up all rubbish')
+        print()
+
+
+def start(mqtt_client, speed_entry, number_entry):
     print("start")
-    mqtt_client.send_message("start", [speed_entry.get()])
+    mqtt_client.send_message("start", [speed_entry.get(), number_entry.get()])
 
 
 def stop(mqtt_client):
