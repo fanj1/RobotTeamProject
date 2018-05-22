@@ -68,7 +68,7 @@ class Snatch3r(object):
     def arm_down(self):
         speed = -900
         pos = -13000
-        self.arm_motor.run_to_rel_pos(position=pos, speed_sp=speed)
+        self.arm_motor.run_to_rel_pos(position_sp=pos, speed_sp=speed)
 
     def loop_forever(self):
         self.running = True
