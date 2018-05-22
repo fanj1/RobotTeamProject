@@ -17,6 +17,7 @@ class Delegate(object):
         self.running = True
         self.run = False
         self.robot = robo.Snatch3r()
+        self.distance = self.robot.ir_sensor.proximity()
 
     def loop_forever(self):
         self.running = True
@@ -26,9 +27,9 @@ class Delegate(object):
     def start(self, speed, number):
         ev3.Sound.speak("start cleaning").wait()
         speed = int(speed)
-        self.run = False
+        self.run = True
         while self.run:
-            distance = self.robot.ir_sensor.proximity
+            ev3.Sound.speak("one").wait()
             if self.run:
                 self.robot.stop()
                 ev3.Sound.speak("stop").wait()
@@ -37,9 +38,9 @@ class Delegate(object):
                 white_level = 3
                 black_level = 1
                 self.robot.follow_black_line(white_level, black_level, speed)
-                distance = self.robot.ir_sensor.proximity
-                if distance < 10:
-                    self.robot.line = True
+                # distance = self.robot.ir_sensor.proximity
+                # if distance < 10:
+                #     self.robot.line = True
             if distance < 10:
                 self.robot.arm_up()
                 self.robot.turn_right(speed, speed)
