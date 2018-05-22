@@ -15,9 +15,9 @@ class Delegate(object):
     def __init__(self):
         self.count = 0
         self.running = True
-        self.run = False
+        self.run = True
         self.robot = robo.Snatch3r()
-        self.distance = self.robot.ir_sensor.proximity()
+        self.distance = self.robot.ir_sensor.proximity
 
     def loop_forever(self):
         self.running = True
@@ -29,19 +29,19 @@ class Delegate(object):
         speed = int(speed)
         self.run = True
         while self.run:
-            ev3.Sound.speak("one").wait()
-            if self.run:
-                self.robot.stop()
-                ev3.Sound.speak("stop").wait()
-                break
-            while distance > 10:
+            ev3.Sound.speak("hello").wait()
+            if self.distance > 10:
                 white_level = 3
                 black_level = 1
-                self.robot.follow_black_line(white_level, black_level, speed)
-                # distance = self.robot.ir_sensor.proximity
-                # if distance < 10:
-                #     self.robot.line = True
-            if distance < 10:
+                intensity = self.robot.color_sensor.ambient_light_intensity
+                if intensity >= white_level:
+                    self.stop()
+                    self.robot.turn_left(speed / 2, speed)
+                    time.sleep(0.3)
+                elif intensity <= black_level:
+                    self.robot.go_forward(speed, speed)
+                    time.sleep(0.3)
+            if self.distance < 10:
                 self.robot.arm_up()
                 self.robot.turn_right(speed, speed)
                 time.sleep(2)
@@ -54,15 +54,17 @@ class Delegate(object):
                 self.robot.turn_left(speed, speed)
                 time.sleep(2)
                 self.robot.stop()
+                ev3.Sound.speak("picked up one rubbish").wait()
                 self.count = self.count + 1
                 if self.count == number:
                     self.robot.stop()
                     ev3.Sound.speak("picked up all rubbish").wait()
                     break
-                ev3.Sound.speak("picked up one rubbish").wait()
+        self.robot.stop()
+        ev3.Sound.speak("stop").wait()
 
     def stop(self):
-        self.run = True
+        self.run = False
 
     def shutdown(self):
         self.running = False

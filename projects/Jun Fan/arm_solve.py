@@ -17,10 +17,16 @@ def main():
         print(distance)
         # print(dis)
         if distance < 15:
-            robot.arm_up()
-            robot.arm_down()
+            speed = 900
+            robot.arm_motor.run_forever(speed_sp=speed)
+            while True:
+                if robot.touch_sensor.is_pressed:
+                    robot.arm_motor.stop(stop_action='hold')
+                    ev3.Sound.speak("in position").wait()
+                    break
             robot.stop()
-            break
+            robot.arm_motor.run_to_rel_pos(position=-13000, speed_sp=-900)
+            time.sleep(10)
         time.sleep(1)
         a = a + 1
         if a == 20:

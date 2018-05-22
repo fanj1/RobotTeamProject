@@ -63,6 +63,7 @@ class Snatch3r(object):
                 self.arm_motor.stop(stop_action='hold')
                 ev3.Sound.speak("in position").wait()
                 break
+        self.stop()
 
     def arm_down(self):
         speed = -900
