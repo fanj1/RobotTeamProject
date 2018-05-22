@@ -50,6 +50,7 @@ class Snatch3r(object):
     def stop(self):
         self.left_motor.stop()
         self.right_motor.stop()
+        self.arm_motor.stop()
 
     def go_backward(self, left_speed, right_speed):
         self.left_motor.run_forever(speed_sp=-left_speed)
@@ -67,7 +68,7 @@ class Snatch3r(object):
 
     def arm_down(self):
         speed = -900
-        pos = -13000
+        pos = -5112
         self.arm_motor.run_to_rel_pos(position_sp=pos, speed_sp=speed)
 
     def loop_forever(self):
