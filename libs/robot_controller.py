@@ -85,7 +85,6 @@ class Snatch3r(object):
         while True:
             intensity = self.color_sensor.ambient_light_intensity
             if intensity >= white_level:
-                self.stop()
                 self.turn_left(speed / 2, speed)
             elif intensity <= black_level:
                 self.go_forward(speed, speed)
@@ -97,7 +96,6 @@ class Snatch3r(object):
         while True:
             intensity = self.color_sensor.ambient_light_intensity
             if intensity <= black_level:
-                self.stop()
                 self.turn_left(speed / 2, speed)
             elif intensity >= white_level:
                 self.go_forward(speed, speed)
