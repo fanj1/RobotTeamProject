@@ -55,6 +55,7 @@ class Delegate(object):
                 time.sleep(250/speed)
                 self.robot.stop()
                 ev3.Sound.speak("picked up one rubbish").wait()
+                print('pick up one rubbish')
                 self.count = self.count + 1
             if self.count == number:
                 self.robot.stop()
