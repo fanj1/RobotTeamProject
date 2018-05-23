@@ -87,7 +87,6 @@ class Snatch3r(object):
             if intensity >= white_level:
                 self.stop()
                 self.turn_left(speed / 2, speed)
-                time.sleep(0.3)
             elif intensity <= black_level:
                 self.go_forward(speed, speed)
             if self.line:
@@ -100,7 +99,6 @@ class Snatch3r(object):
             if intensity <= black_level:
                 self.stop()
                 self.turn_left(speed / 2, speed)
-                time.sleep(0.3)
             elif intensity >= white_level:
                 self.go_forward(speed, speed)
 
